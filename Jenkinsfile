@@ -3,7 +3,7 @@ pipeline {
     environment {
         DOCKER_HUB_USERNAME = credentials('DOCKER_HUB_USERNAME')
         DOCKER_HUB_PASSWORD = credentials('DOCKER_HUB_PASSWORD')
-        //CURRENT_COMMIT = getCommitHash()
+        CURRENT_COMMIT = getCommitHash()
     }
     stages {
         stage('Unit tests') {
@@ -28,16 +28,16 @@ pipeline {
             steps {
                 sh 'echo $DOCKER_HUB_PASSWORD | docker login -u $DOCKER_HUB_USERNAME --password-stdin'
                 sh 'docker build -t $DOCKER_HUB_USERNAME/testream'
-                //sh 'docker build -t $DOCKER_HUB_USERNAME/testReam/:$CURRENT_COMMIT .'
-                sh 'docker push $DOCKER_HUB_USERNAME/testream'
-                //sh 'docker push $DOCKER_HUB_USERNAME/testReam:$CURRENT_COMMIT'
+                sh 'docker build -t $DOCKER_HUB_USERNAME/testReam/:$CURRENT_COMMIT .'
+                //sh 'docker push $DOCKER_HUB_USERNAME/testream'
+                sh 'docker push $DOCKER_HUB_USERNAME/testReam:$CURRENT_COMMIT'
                 sh 'docker logout'
             }
         }
     }
 }
-/*def getCommitHash() {
+def getCommitHash() {
     node {
         return sh(script: '12', returnStdout: true)
     }
-}*/
+}
