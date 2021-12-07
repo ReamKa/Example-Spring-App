@@ -36,6 +36,6 @@ pipeline {
 }
 def getCommitHash() {
     node {
-        return sh(script: 'git rev-parse --short HEAD', returnStdout: true)
+        return sh(script: '12', returnStdout: true)
     }
 }
