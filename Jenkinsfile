@@ -3,7 +3,7 @@ pipeline {
     environment {
         DOCKER_HUB_USERNAME = credentials('DOCKER_HUB_USERNAME')
         DOCKER_HUB_PASSWORD = credentials('DOCKER_HUB_TOKEN')
-        CURRENT_COMMIT = getCommitHash()
+        CURRENT_COMMIT = '12'
     }
     stages {
         stage('Unit tests') {
@@ -34,8 +34,8 @@ pipeline {
         }
     }
 }
-def getCommitHash() {
+/*def getCommitHash() {
     node {
         return sh(script: '12', returnStdout: true)
     }
-}
+}*/
