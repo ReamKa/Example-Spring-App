@@ -3,7 +3,7 @@ pipeline {
     environment {
         DOCKER_HUB_USERNAME = credentials('DOCKER_HUB_USERNAME')
         DOCKER_HUB_PASSWORD = credentials('DOCKER_HUB_TOKEN')
-        CURRENT_COMMIT = '12'
+        //CURRENT_COMMIT = getCommitHash()
     }
     stages {
         stage('Unit tests') {
@@ -27,8 +27,10 @@ pipeline {
             }
             steps {
                 sh 'echo $DOCKER_HUB_PASSWORD | docker login -u $DOCKER_HUB_USERNAME --password-stdin'
-                sh 'docker build -t $DOCKER_HUB_USERNAME/testReam:$CURRENT_COMMIT .'
-                sh 'docker push $DOCKER_HUB_USERNAME/testReam:$CURRENT_COMMIT'
+                sh 'docker build -t $DOCKER_HUB_USERNAME/testReam'
+                //sh 'docker build -t $DOCKER_HUB_USERNAME/testReam/:$CURRENT_COMMIT .'
+                sh 'docker push $DOCKER_HUB_USERNAME/testReam'
+                //sh 'docker push $DOCKER_HUB_USERNAME/testReam:$CURRENT_COMMIT'
                 sh 'docker logout'
             }
         }
